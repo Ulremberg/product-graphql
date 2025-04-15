@@ -1,0 +1,61 @@
+query GetAllProducts {
+    products {
+        id
+        name
+        description
+        category
+        price
+        stock
+    }
+}
+
+query GetProductById {
+    productById(id: "abc123") {
+        id
+        name
+        description
+        category
+        price
+        stock
+    }
+}
+
+query GetProductsByCategory {
+    productsByCategory(category: "Eletrônicos") {
+        id
+        name
+        price
+        stock
+    }
+}
+
+mutation CreateProduct {
+    createProduct(
+        name: "MacBook Pro M2"
+        description: "Notebook Apple"
+        category: "Eletrônicos"
+        price: 9999.99
+        stock: 10
+    ) {
+        id
+        name
+        price
+    }
+}
+
+mutation UpdateProduct {
+    updateProduct(
+        id: "abc123"
+        price: 8999.99
+        stock: 10
+    ) {
+        id
+        name
+        price
+        stock
+    }
+}
+
+mutation DeleteProduct {
+    deleteProduct(id: "abc123")
+}

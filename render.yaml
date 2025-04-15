@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: product-graphql-api
+    env: docker
+    buildCommand: docker build -t product-graphql-api .
+    startCommand: docker run -p $PORT:8080 -e REDIS_HOST=$REDIS_HOST -e REDIS_PORT=$REDIS_PORT -e REDIS_PASSWORD=$REDIS_PASSWORD product-graphql-api
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: REDIS_HOST
+        sync: false
+      - key: REDIS_PORT
+        sync: false
+      - key: REDIS_PASSWORD
+        sync: false
