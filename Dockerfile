@@ -1,8 +1,7 @@
-# Build stage
 FROM maven:3.9-amazoncorretto-17 AS build
 WORKDIR /app
 
-# 1. Configura ambiente UTF-8
+
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
@@ -11,9 +10,9 @@ RUN mvn dependency:go-offline -B
 
 COPY src ./src
 
-RUN apt-get update && \
-    apt-get install -y file && \
+RUN apk add --no-cache file && \
     if file -i src/main/resources/application.properties | grep -q iso-8859-1; then \
+      apk add --no-cache libiconv && \
       iconv -f ISO-8859-1 -t UTF-8 src/main/resources/application.properties -o src/main/resources/application.properties.utf8 && \
       mv src/main/resources/application.properties.utf8 src/main/resources/application.properties; \
     fi
